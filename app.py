@@ -12,7 +12,7 @@ app.secret_key = 'supersecretkey'
 # ========== VALIDAÇÃO ==========
 REQUIRED_FIELDS = [
     'title', 'author', 'institution', 'course', 
-    'abstract', 'introducao', 'body', 'references'
+    'abstract', 'introducao', 'body', 'conclusao', 'references' 
 ]
 
 app = Flask(__name__, static_folder='static')
@@ -78,20 +78,31 @@ def create_abnt_document(form_data):
     create_cover(doc, form_data)
     doc.add_page_break()
     
-    # Seções do documento
-    format_section(doc, "RESUMO", form_data['abstract'])
-    doc.add_page_break()
-    format_section(doc, "INTRODUÇÃO", form_data['introducao'])
-    format_section(doc, "DESENVOLVIMENTO", form_data['body'])
-    doc.add_page_break()
+    # Seções principais
+    sections = [
+        ("RESUMO", form_data['abstract']),
+        ("INTRODUÇÃO", form_data['introducao']),
+        ("DESENVOLVIMENTO", form_data['body']),
+        ("CONCLUSÃO", form_data['conclusao'])
+    ]
+    
+    for title, content in sections:
+        format_section(doc, title, content)
+        doc.add_page_break()
     
     # Referências
     doc.add_paragraph("REFERÊNCIAS").style = 'Heading1'
     for ref in form_data['references'].split('\n'):
         if ref.strip():
-            p = doc.add_paragraph(f"• {ref.strip()}")
+            p = doc.add_paragraph(ref.strip())
             p.paragraph_format.left_indent = Cm(1.25)
             p.paragraph_format.first_line_indent = Cm(-1.25)
+            p.runs[0].font.name = 'Arial'
+    
+    # Configuração final
+    doc.add_page_break()
+    last_para = doc.add_paragraph()
+    last_para.add_run("\n").font.size = Pt(12)
     
     return doc
 
