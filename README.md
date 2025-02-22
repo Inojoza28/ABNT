@@ -6,7 +6,7 @@
 
 Ferramenta web para formatação automática de trabalhos acadêmicos conforme normas ABNT, gerando documentos .docx prontos para uso.
 
-![Screenshot da Interface](https://via.placeholder.com/800x500.png?text=Preview+do+Gerador+ABNT)
+![Screenshot da Interface](https://preview/01.png)
 
 ## ✨ Funcionalidades
 
