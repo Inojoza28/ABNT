@@ -15,6 +15,8 @@ REQUIRED_FIELDS = [
     'abstract', 'introducao', 'body', 'references'
 ]
 
+app = Flask(__name__, static_folder='static')
+
 def validate_inputs(form_data):
     errors = {}
     for field in REQUIRED_FIELDS:
