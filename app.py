@@ -6,16 +6,14 @@ from docx.enum.section import WD_ORIENT
 from datetime import datetime
 import io
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'supersecretkey'
 
 # ========== VALIDAÇÃO ==========
 REQUIRED_FIELDS = [
     'title', 'author', 'institution', 'course', 
-    'abstract', 'introducao', 'body', 'conclusao', 'references' 
+    'abstract', 'introducao', 'body', 'conclusao', 'references'
 ]
-
-app = Flask(__name__, static_folder='static')
 
 def validate_inputs(form_data):
     errors = {}
@@ -29,8 +27,10 @@ def configure_document_styles(doc):
     style = doc.styles['Normal']
     style.font.name = 'Arial'
     style.font.size = Pt(12)
-    style.paragraph_format.line_spacing = 1.5
-    style.paragraph_format.space_after = Pt(0)
+    paragraph_format = style.paragraph_format
+    paragraph_format.line_spacing = 1.5
+    paragraph_format.first_line_indent = Cm(1.25)  # Recuo ABNT
+    paragraph_format.space_after = Pt(0)
 
 def create_header(section, title):
     header = section.header.paragraphs[0]
@@ -55,12 +55,20 @@ def create_cover(doc, data):
     )
     institution.font.size = Pt(12)
 
-def format_section(doc, title, content):
-    doc.add_paragraph(title).bold = True
+def format_section(doc, title, content, is_main_text=True):
+    # Título sem recuo
+    title_para = doc.add_paragraph(title)
+    title_para.style = 'Heading2'
+    title_para.bold = True
+    title_para.paragraph_format.first_line_indent = Cm(0)
+    
+    # Conteúdo com recuo
     for paragraph in content.split('\n\n'):
         if paragraph.strip():
             p = doc.add_paragraph(paragraph.strip())
             p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            if is_main_text:
+                p.paragraph_format.first_line_indent = Cm(1.25)
 
 def create_abnt_document(form_data):
     doc = Document()
@@ -80,26 +88,26 @@ def create_abnt_document(form_data):
     
     # Seções principais
     sections = [
-        ("RESUMO", form_data['abstract']),
+        ("RESUMO", form_data['abstract'], False),  # Sem recuo
         ("INTRODUÇÃO", form_data['introducao']),
         ("DESENVOLVIMENTO", form_data['body']),
         ("CONCLUSÃO", form_data['conclusao'])
     ]
     
-    for title, content in sections:
-        format_section(doc, title, content)
+    for title, content, *flags in sections:
+        format_section(doc, title, content, is_main_text=(False if flags else True))
         doc.add_page_break()
     
     # Referências
     doc.add_paragraph("REFERÊNCIAS").style = 'Heading1'
     for ref in form_data['references'].split('\n'):
         if ref.strip():
-            p = doc.add_paragraph(ref.strip())
+            p = doc.add_paragraph()
             p.paragraph_format.left_indent = Cm(1.25)
             p.paragraph_format.first_line_indent = Cm(-1.25)
-            p.runs[0].font.name = 'Arial'
+            p.add_run(ref.strip()).font.name = 'Arial'
     
-    # Configuração final
+    # Página final em branco
     doc.add_page_break()
     last_para = doc.add_paragraph()
     last_para.add_run("\n").font.size = Pt(12)
