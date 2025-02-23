@@ -9,6 +9,8 @@ Ferramenta web para formatação automática de trabalhos acadêmicos conforme n
 ![Screenshot da Interface](preview/01.png)
 ![Screenshot da Interface](preview/02.png)
 ![Screenshot da Interface](preview/03.png)
+![Screenshot da Interface](preview/04.png)
+![Screenshot da Interface](preview/05.png)
 
 ## ✨ Funcionalidades
 
