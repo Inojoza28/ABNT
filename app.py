@@ -125,6 +125,7 @@ def create_abnt_document(form_data):
     """
     doc = Document()  # Cria um novo documento
     
+    
     # Configurações da página (tamanho A4 e margens definidas)
     section = doc.sections[0]
     section.orientation = WD_ORIENT.PORTRAIT  # Orientação vertical
@@ -133,12 +134,14 @@ def create_abnt_document(form_data):
     section.left_margin = Cm(3)
     section.right_margin = Cm(2)
     
+
     # Aplica os estilos do documento e adiciona o cabeçalho e a capa
     configure_document_styles(doc)
     create_header(section, form_data.get('short_title', form_data['title']))
     create_cover(doc, form_data)
     doc.add_page_break()  # Insere uma quebra de página após a capa
     
+
     # Define as seções principais do trabalho: Resumo, Introdução, Desenvolvimento e Conclusão.
     # No caso do Resumo, não é aplicado recuo no texto.
     sections = [
@@ -148,10 +151,12 @@ def create_abnt_document(form_data):
         ("CONCLUSÃO", form_data['conclusao'])
     ]
     
+
     # Para cada seção, formata e adiciona o conteúdo seguido de uma quebra de página.
     for title, content, *flags in sections:
         format_section(doc, title, content, is_main_text=(False if flags else True))
         doc.add_page_break()
+
     
     # Adiciona a seção de referências com formatação especial
     doc.add_paragraph("REFERÊNCIAS").style = 'Heading1'
@@ -163,6 +168,7 @@ def create_abnt_document(form_data):
             p.paragraph_format.first_line_indent = Cm(-1.25)
             p.add_run(ref.strip()).font.name = 'Arial'
     
+
     # Adiciona uma página final em branco para manter a formatação adequada
     doc.add_page_break()
     last_para = doc.add_paragraph()
