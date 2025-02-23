@@ -4,7 +4,7 @@
 ![Flask](https://img.shields.io/badge/flask-2.0%2B-lightgrey)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-Ferramenta web para formatação automática de trabalhos acadêmicos conforme normas ABNT, gerando documentos .docx prontos para uso.
+Ferramenta web completa para formatação automática de trabalhos acadêmicos conforme normas ABNT, com suporte à geração de documentos .docx e recursos de IA integrados.
 
 ![Screenshot da Interface](preview/01.png)
 ![Screenshot da Interface](preview/02.png)
@@ -13,6 +13,11 @@ Ferramenta web para formatação automática de trabalhos acadêmicos conforme n
 ![Screenshot da Interface](preview/05.png)
 
 ## ✨ Funcionalidades
+
+- **Assistência Inteligente**
+  - Prompt pronto para uso em ferramentas de IA
+  - Estrutura pré-definida para redação acadêmica
+  - Download automático em formato .txt
 
 - **Formulário Inteligente**
   - Campos para todas as seções acadêmicas
@@ -35,6 +40,7 @@ Ferramenta web para formatação automática de trabalhos acadêmicos conforme n
 - **DOCX:** python-docx
 - **Frontend:** Bootstrap 5 + Ícones
 - **Validação:** JavaScript Vanilla
+- **IA:** Prompt engineering integrado
 
 ## 🚀 Instalação
 
