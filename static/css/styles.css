@@ -162,6 +162,35 @@ input:focus, textarea:focus {
     cursor: not-allowed;
 }
 
+hr {
+    border: none;
+    height: 1px;
+    background-color: #575757;
+    margin: 30px auto;
+    width: 90%;
+    align-items: center;
+  }
+  
+
+/* Botão IA */
+#downloadPromptBtn {
+    background: #6c757d00;
+    color: #2c3e50;
+    padding: 0.9rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+#downloadPromptBtn:hover {
+    background: #5a6268;
+    color: white;
+    transform: translateY(-2px);
+}
+
+#downloadPromptBtn i {
+    margin-right: 0.5rem;
+}
+
 /* Modal */
 .modal-content {
     border-radius: 15px;
