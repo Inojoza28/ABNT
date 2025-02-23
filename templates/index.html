@@ -1,243 +1,312 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gerador ABNT Profissional</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/styles.css') }}"
-    />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador ABNT Inteligente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
     <div class="main-container">
-      <div class="form-card">
-        <div class="icon-title">
-          <i class="bi bi-file-earmark-richtext"></i>
-          <h1 class="mb-0">Gerador ABNT Acadêmico</h1>
+        <div class="form-card">
+            <div class="header-container">
+                <div class="icon-title">
+                    <i class="bi bi-file-earmark-richtext"></i>
+                    <h1>Gerador ABNT Inteligente</h1>
+                </div>
+                <div class="abnt-info">
+                    <button class="info-btn" data-bs-toggle="modal" data-bs-target="#infoModal">
+                        <i class="bi bi-question-circle"></i>
+                    </button>
+                </div>
+            </div>
+
+            <form method="post" id="mainForm">
+                <ul class="nav nav-tabs mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#about">
+                            <i class="bi bi-info-lg"></i> Sobre
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#metadata">
+                            <i class="bi bi-card-heading"></i> Dados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#content">
+                            <i class="bi bi-journal-text"></i> Conteúdo
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#references">
+                            <i class="bi bi-book"></i> Referências
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- Nova aba Sobre -->
+                    <div class="tab-pane fade show active" id="about">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <i class="bi bi-lightbulb"></i>
+                                <h4>O que é ABNT?</h4>
+                                <p>Padrão brasileiro para formatação de trabalhos acadêmicos que garante clareza e uniformidade.</p>
+                            </div>
+                            
+                            <div class="info-item">
+                                <i class="bi bi-magic"></i>
+                                <h4>Como Funciona?</h4>
+                                <p>Preencha os campos e nosso sistema aplicará automaticamente todas as normas técnicas necessárias.</p>
+                            </div>
+
+                            <div class="info-item">
+                                <i class="bi bi-check2-all"></i>
+                                <h4>Você Ganha</h4>
+                                <ul>
+                                    <li>Economia de tempo</li>
+                                    <li>Precisão técnica</li>
+                                    <li>Resultado profissional</li>
+                                </ul>
+                            </div>
+
+                            <div class="info-item">
+                                <i class="bi bi-file-earmark-text"></i>
+                                <h4>Formatos Gerados</h4>
+                                <ul>
+                                    <li>Fonte Arial 12</li>
+                                    <li>Margens corretas</li>
+                                    <li>Espaçamento 1.5</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aba Dados -->
+                    <div class="tab-pane fade" id="metadata">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                              <label class="form-label required">Título do Trabalho</label>
+                              <div class="input-group">
+                                <span class="input-group-text"
+                                  ><i class="bi bi-pencil"></i
+                                ></span>
+                                <input
+                                  type="text"
+                                  name="title"
+                                  class="form-control"
+                                  required
+                                  data-check
+                                />
+                              </div>
+                            </div>
+            
+                            <div class="col-md-6">
+                              <label class="form-label required">Autor(es)</label>
+                              <div class="input-group">
+                                <span class="input-group-text"
+                                  ><i class="bi bi-person"></i
+                                ></span>
+                                <input
+                                  type="text"
+                                  name="author"
+                                  class="form-control"
+                                  required
+                                  data-check
+                                />
+                              </div>
+                            </div>
+            
+                            <div class="col-md-4">
+                              <label class="form-label required">Instituição</label>
+                              <div class="input-group">
+                                <span class="input-group-text"
+                                  ><i class="bi bi-building"></i
+                                ></span>
+                                <input
+                                  type="text"
+                                  name="institution"
+                                  class="form-control"
+                                  required
+                                  data-check
+                                />
+                              </div>
+                            </div>
+            
+                            <div class="col-md-4">
+                              <label class="form-label required">Curso</label>
+                              <div class="input-group">
+                                <span class="input-group-text"
+                                  ><i class="bi bi-mortarboard"></i
+                                ></span>
+                                <input
+                                  type="text"
+                                  name="course"
+                                  class="form-control"
+                                  required
+                                  data-check
+                                />
+                              </div>
+                            </div>
+            
+                            <div class="col-md-4">
+                              <label class="form-label">Título Reduzido</label>
+                              <div class="input-group">
+                                <span class="input-group-text"
+                                  ><i class="bi bi-shortcut"></i
+                                ></span>
+                                <input
+                                  type="text"
+                                  name="short_title"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  
+
+                    <!-- Aba Conteúdo -->
+                    <div class="tab-pane fade" id="content">
+                        <div class="mb-4">
+                            <label class="form-label required">Resumo</label>
+                            <textarea
+                              name="abstract"
+                              class="form-control"
+                              rows="5"
+                              required
+                              data-check
+                              placeholder="Digite o resumo conforme normas ABNT..."
+                            ></textarea>
+                          </div>
+            
+                          <div class="mb-4">
+                            <label class="form-label required">Introdução</label>
+                            <textarea
+                              name="introducao"
+                              class="form-control"
+                              rows="5"
+                              required
+                              data-check
+                              placeholder="Contextualização e objetivos do trabalho..."
+                            ></textarea>
+                          </div>
+            
+                          <div class="mb-4">
+                            <label class="form-label required">Desenvolvimento</label>
+                            <textarea
+                              name="body"
+                              class="form-control"
+                              rows="10"
+                              required
+                              data-check
+                              placeholder="Desenvolvimento do conteúdo em seções..."
+                            ></textarea>
+                          </div>
+                          <div class="mb-4">
+                            <label class="form-label required">Conclusão</label>
+                            <textarea
+                              name="conclusao"
+                              class="form-control"
+                              rows="5"
+                              required
+                              data-check
+                              placeholder="Apresente as considerações finais do trabalho..."
+                            ></textarea>
+            
+                            <div class="example-text">
+                              <i class="bi bi-info-circle"></i> Separe parágrafos com linha
+                              em branco
+                            </div>
+                          </div>
+                        </div>
+                   
+
+                    <!-- Aba Referências -->
+                    <div class="tab-pane fade" id="references">
+                        <div class="alert alert-info">
+                            <div class="d-flex gap-2">
+                              <i class="bi bi-info-circle-fill"></i>
+                              <div>
+                                <strong>Formato ABNT:</strong><br />
+                                Exemplo: SOBRENOME, Nome. Título da obra. Edição. Local:
+                                Editora, ano.
+                              </div>
+                            </div>
+                          </div>
+            
+                          <label class="form-label required"
+                            >Referências Bibliográficas</label
+                          >
+                          <textarea
+                            name="references"
+                            class="form-control"
+                            rows="8"
+                            required
+                            data-check
+                            placeholder="Insira uma referência por linha..."
+                          ></textarea>
+                        </div>
+                      </div>
+                
+
+                <div class="text-center mt-5">
+                    <button type="submit" id="generateBtn" class="btn" disabled>
+                        <i class="bi bi-file-earmark-arrow-down"></i>
+                        Gerar Documento
+                    </button>
+                </div>
+            </form>
         </div>
 
-        <form method="post" id="mainForm">
-          <ul class="nav nav-tabs mb-4">
-            <li class="nav-item">
-              <a class="nav-link active" data-bs-toggle="tab" href="#metadata">
-                <i class="bi bi-card-heading"></i> Dados
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" href="#content">
-                <i class="bi bi-journal-text"></i> Conteúdo
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="tab" href="#references">
-                <i class="bi bi-book"></i> Referências
-              </a>
-            </li>
-          </ul>
-
-          <div class="tab-content">
-            <!-- Dados Básicos -->
-            <div class="tab-pane fade show active" id="metadata">
-              <div class="row g-4">
-                <div class="col-md-6">
-                  <label class="form-label required">Título do Trabalho</label>
-                  <div class="input-group">
-                    <span class="input-group-text"
-                      ><i class="bi bi-pencil"></i
-                    ></span>
-                    <input
-                      type="text"
-                      name="title"
-                      class="form-control"
-                      required
-                      data-check
-                    />
-                  </div>
+        <!-- Modal de Informações -->
+        <div class="modal fade" id="infoModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="bi bi-patch-question"></i> Guia Rápido</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="guide-step">
+                            <div class="step-number">1</div>
+                            <p>Preencha todos os campos obrigatórios marcados com <span class="required">*</span></p>
+                        </div>
+                        <div class="guide-step">
+                            <div class="step-number">2</div>
+                            <p>Utilize as abas para navegar entre as seções do documento</p>
+                        </div>
+                        <div class="guide-step">
+                            <div class="step-number">3</div>
+                            <p>Clique em "Gerar Documento" para baixar seu arquivo formatado</p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-md-6">
-                  <label class="form-label required">Autor(es)</label>
-                  <div class="input-group">
-                    <span class="input-group-text"
-                      ><i class="bi bi-person"></i
-                    ></span>
-                    <input
-                      type="text"
-                      name="author"
-                      class="form-control"
-                      required
-                      data-check
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <label class="form-label required">Instituição</label>
-                  <div class="input-group">
-                    <span class="input-group-text"
-                      ><i class="bi bi-building"></i
-                    ></span>
-                    <input
-                      type="text"
-                      name="institution"
-                      class="form-control"
-                      required
-                      data-check
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <label class="form-label required">Curso</label>
-                  <div class="input-group">
-                    <span class="input-group-text"
-                      ><i class="bi bi-mortarboard"></i
-                    ></span>
-                    <input
-                      type="text"
-                      name="course"
-                      class="form-control"
-                      required
-                      data-check
-                    />
-                  </div>
-                </div>
-
-                <div class="col-md-4">
-                  <label class="form-label">Título Reduzido</label>
-                  <div class="input-group">
-                    <span class="input-group-text"
-                      ><i class="bi bi-shortcut"></i
-                    ></span>
-                    <input
-                      type="text"
-                      name="short_title"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
-
-            <!-- Conteúdo -->
-            <div class="tab-pane fade" id="content">
-              <div class="mb-4">
-                <label class="form-label required">Resumo</label>
-                <textarea
-                  name="abstract"
-                  class="form-control"
-                  rows="5"
-                  required
-                  data-check
-                  placeholder="Digite o resumo conforme normas ABNT..."
-                ></textarea>
-              </div>
-
-              <div class="mb-4">
-                <label class="form-label required">Introdução</label>
-                <textarea
-                  name="introducao"
-                  class="form-control"
-                  rows="5"
-                  required
-                  data-check
-                  placeholder="Contextualização e objetivos do trabalho..."
-                ></textarea>
-              </div>
-
-              <div class="mb-4">
-                <label class="form-label required">Desenvolvimento</label>
-                <textarea
-                  name="body"
-                  class="form-control"
-                  rows="10"
-                  required
-                  data-check
-                  placeholder="Desenvolvimento do conteúdo em seções..."
-                ></textarea>
-              </div>
-              <div class="mb-4">
-                <label class="form-label required">Conclusão</label>
-                <textarea
-                  name="conclusao"
-                  class="form-control"
-                  rows="5"
-                  required
-                  data-check
-                  placeholder="Apresente as considerações finais do trabalho..."
-                ></textarea>
-
-                <div class="example-text">
-                  <i class="bi bi-info-circle"></i> Separe parágrafos com linha
-                  em branco
-                </div>
-              </div>
-            </div>
-
-            <!-- Referências -->
-            <div class="tab-pane fade" id="references">
-              <div class="alert alert-info">
-                <div class="d-flex gap-2">
-                  <i class="bi bi-info-circle-fill"></i>
-                  <div>
-                    <strong>Formato ABNT:</strong><br />
-                    Exemplo: SOBRENOME, Nome. Título da obra. Edição. Local:
-                    Editora, ano.
-                  </div>
-                </div>
-              </div>
-
-              <label class="form-label required"
-                >Referências Bibliográficas</label
-              >
-              <textarea
-                name="references"
-                class="form-control"
-                rows="8"
-                required
-                data-check
-                placeholder="Insira uma referência por linha..."
-              ></textarea>
-            </div>
-          </div>
-
-          <div class="text-center mt-5">
-            <button type="submit" id="generateBtn" class="btn" disabled>
-              <i class="bi bi-file-earmark-arrow-down"></i>
-              Gerar Documento
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Mensagens de Erro -->
-      {% if errors %}
-      <div class="alert alert-danger mt-4">
-        <div class="d-flex gap-2">
-          <i class="bi bi-exclamation-triangle-fill"></i>
-          <div>
-            <h5 class="mb-3">Campos obrigatórios não preenchidos!</h5>
-            <ul class="mb-0">
-              {% for error in errors.values() %}
-              <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </div>
         </div>
-      </div>
-      {% endif %}
+
+        <!-- Mensagens de Erro -->
+        {% if errors %}
+        <div class="alert alert-danger mt-4">
+            <div class="d-flex gap-2">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <div>
+                    <h5 class="mb-3">Campos obrigatórios não preenchidos!</h5>
+                    <ul class="mb-0">
+                        {% for error in errors.values() %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  </body>
+</body>
 </html>

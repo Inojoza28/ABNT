@@ -3,11 +3,12 @@
     --accent: #3498db;
     --text: #34495e;
     --success: #27ae60;
+    --light-bg: #f8f9fa;
 }
 
 body {
     font-family: 'Segoe UI', system-ui, sans-serif;
-    background: #f8f9fa;
+    background: var(--light-bg);
     color: var(--text);
 }
 
@@ -17,6 +18,28 @@ body {
     padding: 0 1rem;
 }
 
+/* Header */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.info-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+    padding: 0.5rem;
+}
+
+.info-btn:hover {
+    transform: rotate(15deg);
+}
+
+/* Cards e Grid */
 .form-card {
     background: white;
     border-radius: 16px;
@@ -29,6 +52,54 @@ body {
     transform: translateY(-3px);
 }
 
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.info-item {
+    background: var(--light-bg);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.info-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.info-item i {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.info-item h4 {
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.info-item ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.info-item li {
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Navegação */
 .nav-tabs {
     border-bottom: 2px solid #ecf0f1;
 }
@@ -39,17 +110,23 @@ body {
     padding: 1rem 2rem;
     border: none !important;
     transition: all 0.2s;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .nav-link.active {
     color: var(--accent) !important;
     border-bottom: 3px solid var(--accent) !important;
+    background: transparent !important;
 }
 
+/* Formulário */
 .form-label {
     font-weight: 600;
     color: var(--primary);
     margin-bottom: 0.75rem;
+    display: block;
 }
 
 input, textarea {
@@ -57,6 +134,7 @@ input, textarea {
     border-radius: 10px !important;
     padding: 0.8rem !important;
     transition: all 0.3s ease;
+    font-size: 0.95rem;
 }
 
 input:focus, textarea:focus {
@@ -64,13 +142,7 @@ input:focus, textarea:focus {
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1) !important;
 }
 
-/* Adicione no main.css */
-.conclusion-section {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 2px solid #ecf0f1;
-}
-
+/* Botões */
 #generateBtn {
     background: var(--success);
     color: white;
@@ -81,13 +153,45 @@ input:focus, textarea:focus {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    border: none;
 }
 
 #generateBtn:disabled {
     background: #95a5a6;
     opacity: 0.7;
+    cursor: not-allowed;
 }
 
+/* Modal */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.guide-step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    background: var(--light-bg);
+    border-radius: 8px;
+}
+
+.step-number {
+    background: var(--accent);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+/* Elementos gerais */
 .required::after {
     content: "*";
     color: #e74c3c;
@@ -98,6 +202,9 @@ input:focus, textarea:focus {
     color: #7f8c8d;
     font-size: 0.9rem;
     margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .icon-title {
@@ -110,6 +217,7 @@ input:focus, textarea:focus {
 .icon-title h1 {
     font-size: 1.75rem;
     margin: 0;
+    color: var(--primary);
 }
 
 .icon-title i {
@@ -120,4 +228,32 @@ input:focus, textarea:focus {
 .alert {
     border-radius: 8px;
     border: none;
+}
+
+/* Scroll Top Button */
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.scroll-top:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+}
+
+.scroll-top.active {
+    display: flex;
 }
